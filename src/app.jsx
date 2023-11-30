@@ -1,19 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 
 import './app.css';
-import Home from './pages/home';
-import About from './pages/about';
+import Profile from './pages/profile';
 
 function App() {
   return (
-    <div className="app">
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route exact path="/" element={<Profile />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   );
 }
 
@@ -23,7 +20,9 @@ export default function WrappedApp() {
 
   return (
     <Router basename={basename}>
-      <App />
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
     </Router>
   );
 }
