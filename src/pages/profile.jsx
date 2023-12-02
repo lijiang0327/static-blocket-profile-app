@@ -63,29 +63,57 @@ function Profile() {
         paddingY={4}
         backgroundColor="gray.200"
         borderBottom="1px solid #ccc">
-        <Heading as="h1" size="sm" margin={0}>
+        <Heading as="h1" size="sm" margin={0} data-testid="profile-title">
           Profile
         </Heading>
-        {!isEditing && <IconButton icon={<EditIcon />} isRound variant="empty" onClick={onEditBtnClickHandler} />}
-        {isEditing && <IconButton icon={<CheckIcon />} isRound variant="empty" onClick={onSaveBtnClickHandler} />}
+        {!isEditing && (
+          <IconButton
+            data-testid="profile-edit-button"
+            icon={<EditIcon />}
+            isRound
+            variant="empty"
+            onClick={onEditBtnClickHandler}
+          />
+        )}
+        {isEditing && (
+          <IconButton
+            data-testid="profile-save-button"
+            icon={<CheckIcon />}
+            isRound
+            variant="empty"
+            onClick={onSaveBtnClickHandler}
+          />
+        )}
       </Box>
-      <Box pt={8} display="flex" alignContent="center" justifyContent="center">
+      <Box pt={8} display="flex" data-testid="profile-avatar" alignContent="center" justifyContent="center">
         <Avatar name={profileData.name} />
       </Box>
       <Box px={12} py={8} display="flex" maxW="xl" marginX="auto" flexDirection="column" gap={4}>
         <FormControl isReadOnly={!isEditing} isRequired={isEditing} isInvalid={errors.name}>
           <Flex alignItems={['flex-start', 'center']} flexDirection={['column', 'row']}>
-            <FormLabel mb={0} border textAlign={['left', 'right']} minW={36}>
+            <FormLabel mb={0} data-testid="profile-name-label" border textAlign={['left', 'right']} minW={36}>
               Name:
             </FormLabel>
-            {isEditing && <Input {...register('name', { required: 'Name is required' })} />}
+            {isEditing && (
+              <Input data-testid="profile-name-input" {...register('name', { required: 'Name is required' })} />
+            )}
             {!isEditing && (
-              <Text borderBottom="1px solid #e4e4e4" lineHeight={10} width="100%" px={4}>
+              <Text
+                borderBottom="1px solid #e4e4e4"
+                data-testid="profile-name-value"
+                lineHeight={10}
+                h={10}
+                width="100%"
+                px={4}>
                 {profileData.name}
               </Text>
             )}
           </Flex>
-          {errors.name && <FormErrorMessage justifyContent="center">{errors.name.message}</FormErrorMessage>}
+          {errors.name && (
+            <FormErrorMessage data-testid="profile-name-error-message" justifyContent="center">
+              {errors.name.message}
+            </FormErrorMessage>
+          )}
         </FormControl>
         <FormControl isReadOnly={!isEditing} isRequired={isEditing} isInvalid={errors.email}>
           <Flex alignItems={['flex-start', 'center']} flexDirection={['column', 'row']}>
@@ -98,15 +126,26 @@ function Profile() {
                   required: 'Email is required',
                   pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Invalid email format' },
                 })}
+                data-testid="profile-email-input"
               />
             )}
             {!isEditing && (
-              <Text borderBottom="1px solid #e4e4e4" lineHeight={10} width="100%" px={4}>
+              <Text
+                data-testid="profile-email-value"
+                borderBottom="1px solid #e4e4e4"
+                lineHeight={10}
+                h={10}
+                width="100%"
+                px={4}>
                 {profileData.email}
               </Text>
             )}
           </Flex>
-          {errors.email && <FormErrorMessage justifyContent="center">{errors.email.message}</FormErrorMessage>}
+          {errors.email && (
+            <FormErrorMessage data-testid="profile-email-error-message" justifyContent="center">
+              {errors.email.message}
+            </FormErrorMessage>
+          )}
         </FormControl>
         <FormControl isReadOnly={!isEditing} isRequired={isEditing} isInvalid={errors.phoneNumber}>
           <Flex alignItems={['flex-start', 'center']} flexDirection={['column', 'row']}>
@@ -116,19 +155,28 @@ function Profile() {
             {isEditing && (
               <Input
                 {...register('phoneNumber', {
-                  required: 'Phone Number is required',
+                  required: 'Phone number is required',
                   pattern: { value: /^[+]?[0-9]+$/, message: 'Invalid phone number format' },
                 })}
+                data-testid="profile-phone-number-input"
               />
             )}
             {!isEditing && (
-              <Text borderBottom="1px solid #e4e4e4" lineHeight={10} width="100%" px={4}>
+              <Text
+                data-testid="profile-phone-number-value"
+                borderBottom="1px solid #e4e4e4"
+                lineHeight={10}
+                h={10}
+                width="100%"
+                px={4}>
                 {profileData.phoneNumber}
               </Text>
             )}
           </Flex>
           {errors.phoneNumber && (
-            <FormErrorMessage justifyContent="center">{errors.phoneNumber.message}</FormErrorMessage>
+            <FormErrorMessage data-testid="profile-phone-number-error-message" justifyContent="center">
+              {errors.phoneNumber.message}
+            </FormErrorMessage>
           )}
         </FormControl>
       </Box>
